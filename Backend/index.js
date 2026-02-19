@@ -4,20 +4,23 @@ const jwt = require('jsonwebtoken');
 const Product = require('./Models/Product');
 const multer = require('multer');
 const path = require('path');
+const dotenv = require('dotenv');
+dotenv.config();
 //using this path we can get access to backend directory in our express app
 
 const cors = require("cors")
 //it helps to connect frontend and backend
 
 const app = express();
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 
 app.use(express.json());
 // to accept json data from frontend to backend
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 //Database Connection with mongoDB
-mongoose.connect("mongodb+srv://ritiksaxena164_db_user:I7CGjCF9K3FQjcG9@cluster0.ahlxnzr.mongodb.net/shopper")
+mongoose.connect(process.env.MONGO_URI)
 .then(()=>{
     console.log("MongoDB Connected Successfully");
 })
@@ -59,6 +62,7 @@ app.use('/images',express.static('upload/images'))
 // to make the images folder static so that we can access the images from the browser
 
 //Creating upload EndPoint for images
+
 app.post("/upload",upload.single('product'),(req,res)=>{
     res.json({
         success : 1,
