@@ -4,7 +4,7 @@
     import { useState,useEffect } from 'react';
     // Create a context for the shop for managing global state
     export const ShopContext = createContext(null);
-
+    const API = import.meta.env.VITE_API_URL;
        // we will create one empty cart by a function where key will be product id 
       // and value will be quantity of product
 
@@ -30,13 +30,13 @@
       useEffect(()=>{
       
         // fetching all products from the database and storing it in the state variable all_product
-        fetch('http://localhost:4000/allproducts')
+        fetch(`${API}/allproducts`)
         .then((response)=>response.json())
         .then((data)=>{
           setAll_Product(data);
         })
         if(localStorage.getItem('auth-token')){
-          fetch('http://localhost:4000/getcart',{
+          fetch(`${API}/getcart`,{
             method:'POST',
             headers:{
               Accept:'application/json',
@@ -55,7 +55,7 @@
       const addToCart = (itemId)=>{
         setcartItems((prev)=>({...prev,[itemId]: prev[itemId] + 1}));
         if(localStorage.getItem('auth-token')){
-          fetch('http://localhost:4000/addtocart',{
+          fetch(`${API}/addtocart`,{
             method:'POST',
             headers:{
               Accept:'application/json',
@@ -77,7 +77,7 @@
         // we are using Math.max to ensure that the quantity does not go below 0
 
         if(localStorage.getItem('auth-token')){
-          fetch('http://localhost:4000/removefromcart',{
+          fetch(`${API}/removefromcart`,{
             method:'POST',
             headers:{
               Accept:'application/json',
