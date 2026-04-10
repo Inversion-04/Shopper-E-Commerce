@@ -3,6 +3,7 @@ import './CartItems.css'
 import { ShopContext } from '../../Contexts/ShopContext.jsx'
 import remove_icon from '../Assets/Frontend_Assets/cart_cross_icon.png'
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
 // This component will display the items added to the cart
 //it will be mounted inside the Cart page
 function CartItems() {
@@ -25,7 +26,11 @@ function CartItems() {
           return (
             <div key={product.id}>
               <div className="cartitems-format cartitems-format-main">
-                <img src={product.image} alt="" className='carticon-product-icon' />
+                  <img 
+                   src={`${API_URL}/images/${product.image}`} 
+                    alt="" 
+                    className='carticon-product-icon' 
+                    />
                 <p>{product.name}</p>
                 <p>${product.new_price}</p>
                 <button className="cartitems-quantity">{cartItems[product.id]}</button>

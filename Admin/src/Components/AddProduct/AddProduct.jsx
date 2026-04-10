@@ -41,7 +41,7 @@ function AddProduct() {
           .then((data)=>{responseData = data})
 
           if(responseData.success){
-             product.image = responseData.image_url;
+             product.image = responseData.image;
              console.log(product)
              await fetch('http://localhost:4000/addproduct',{
                 method : 'POST',
