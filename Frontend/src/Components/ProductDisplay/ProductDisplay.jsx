@@ -4,6 +4,8 @@ import star_icon from '../Assets/Frontend_Assets/star_icon.png'
 import star_dull_icon from '../Assets/Frontend_Assets/star_dull_icon.png'
 import {useContext} from 'react'
 import {ShopContext} from '../../Contexts/ShopContext.jsx'
+const API_URL = import.meta.env.VITE_API_URL; // accessing the API URL from environment variable
+
 const ProductDisplay = (props) => {
   const{product} = props 
  const{addToCart} = useContext(ShopContext)
@@ -16,17 +18,17 @@ const ProductDisplay = (props) => {
 
         {/* Thumbnails */}
         <div className="productdisplay-img-list">
-          <img src={product.image} alt="" />
-          <img src={product.image} alt="" />
-          <img src={product.image} alt="" />
-          <img src={product.image} alt="" />
+          <img src={`${API_URL}/images/${product.image}`} alt="" />
+          <img src={`${API_URL}/images/${product.image}`} alt="" />
+          <img src={`${API_URL}/images/${product.image}`} alt="" />
+          <img src={`${API_URL}/images/${product.image}`} alt="" />
         </div>
 
         {/* Main Image */}
         <div className="product-display-image">
           <img
             className="productdisplay-main-img"
-            src={product.image}
+            src={`${API_URL}/images/${product.image}`}
             alt=""
           />
         </div>

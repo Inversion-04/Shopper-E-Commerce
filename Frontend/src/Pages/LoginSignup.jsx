@@ -6,7 +6,8 @@
 
   import React, { useState } from 'react'
   import './CSS/LoginSignup.css'
-
+  const API_URL = import.meta.env.VITE_API_URL; // accessing the API URL from environment variable
+  
   function LoginSignup() {
   // State to manage form data
     const [formData, setFormData] = useState({
@@ -24,7 +25,7 @@
         console.log("Login Executed",formData)
         let responseData;
 
-         await fetch('http://localhost:4000/login',{
+         await fetch(`${API_URL}/login`,{
           method:'POST',
           headers:{
             Accept:'application/form-data',
@@ -48,7 +49,7 @@
          console.log("Sing Up Executed",formData)
          let responseData;
 
-         await fetch('http://localhost:4000/signup',{
+         await fetch(`${API_URL}/signup`,{
           method:'POST',
           headers:{
             Accept:'application/form-data',

@@ -2,6 +2,7 @@
     import './Popular.css'
     import Items from '../Items/Items.jsx'
     import {useState,useEffect} from 'react'
+    const API_URL = import.meta.env.VITE_API_URL; // accessing the API URL from environment variable
     // popular section to show popular items
     //the data is already present in data_products.json file
     //it is accessed by items component via props
@@ -12,7 +13,7 @@
         const[popularProducts,setPopularProducts] = useState([])
         // states for setting fetched popular products for women from backend
         useEffect(()=>{
-            fetch('http://localhost:4000/popularInWomen')
+            fetch(`${API_URL}/popularInWomen`)
             .then((resp)=>resp.json())
             .then((data)=>setPopularProducts(data));
         },[])

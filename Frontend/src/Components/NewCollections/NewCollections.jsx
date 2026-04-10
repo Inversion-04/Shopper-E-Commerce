@@ -2,6 +2,7 @@ import React from 'react'
 import './NewCollections.css'
 import Items from '../Items/Items.jsx'
 import { useState,useEffect } from 'react'
+const API_URL = import.meta.env.VITE_API_URL; // accessing the API URL from environment variable
 // this component displays new collections on the home page
 // here we map data of new collections and display them
 // with the help of Item component
@@ -10,7 +11,7 @@ function NewCollections() {
   const[newCollection,setNewCollection] = useState([])
   useEffect(()=>{
  // fetching new collection data from the backend and storing it in the state variable newCollection
-  fetch('http://localhost:4000/newCollections')
+  fetch(`${API_URL}/newCollections`)
   .then((resp)=>resp.json())
   .then((data)=>setNewCollection(data));
   },[]) // empty dependency array means this useEffect will run only once when the component is mounted
