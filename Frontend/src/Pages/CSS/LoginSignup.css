@@ -101,3 +101,17 @@
     font-size: 14px;
     color: red;
 }
+
+.role-select {
+    height: 55px;
+    padding: 0 15px;
+    border: 1px solid #c9c9c9;
+    color: grey;
+    border-radius: 6px;
+    font-size: 16px;
+    outline: none;
+}
+
+.role-select:focus {
+    border-color: #ff4141;
+}

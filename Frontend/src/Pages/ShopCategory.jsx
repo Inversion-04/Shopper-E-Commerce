@@ -39,9 +39,31 @@ function ShopCategory(props) {
         })}
       </div>
       {/* load more button */}
-      <div className="shopcategory-loadmore">
-         Explore More
-      </div>
+      <div className="explore-section">
+  <h2>Discover Your Style</h2>
+  <p>Find the latest trends and upgrade your wardrobe with premium collections</p>
+
+  <div className="explore-features">
+    <div className="feature-card">
+      <h3>🔥 Trending</h3>
+      <p>Latest fashion styles curated just for you</p>
+    </div>
+
+    <div className="feature-card">
+      <h3>🚚 Fast Delivery</h3>
+      <p>Quick and reliable delivery at your doorstep</p>
+    </div>
+
+    <div className="feature-card">
+      <h3>💎 Premium Quality</h3>
+      <p>Top quality products with best pricing</p>
+    </div>
+  </div>
+
+    <button className="explore-btn">
+        Explore More →
+    </button>
+</div>
     </div>
   )
 }

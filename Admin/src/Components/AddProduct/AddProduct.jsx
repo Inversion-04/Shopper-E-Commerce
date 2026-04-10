@@ -4,29 +4,77 @@ import { useState } from 'react'
 import upload_area from '../../assets/Admin_Assets/upload_area.svg'
 function AddProduct() {
     const[image,setImage] = useState(false);
+    // this state will help us in storing the details of product which we want to add
+    const[productDetails,setProductDetails] = useState({
+        name : '',
+        image : '',
+        old_price : '',     
+        new_price : '',
+        category : 'women',
+    });
+    
     // this function helps us in handling the logic of showing image in upload area when we select an image from our device
     const imageHandler = (e)=>{
         setImage(e.target.files[0]);
+    }
+    // this function will help us in handling the change in input fields and storing the values in productDetails state
+    const changeHandler = (e)=>{
+        setProductDetails({...productDetails,[e.target.name] : e.target.value});
+    }
+
+    const addProduct = async()=>{
+        console.log(productDetails);
+        // here we will write the logic of adding the product in our database and also uploading the image in cloudinary and getting the url of that image and storing it in our database
+        let responseData;
+        let product = productDetails;
+
+        let formData = new FormData();
+        formData.append('product',image);
+        
+        await fetch('http://localhost:4000/upload',{
+            method : 'POST',
+            headers:{
+                Accept : 'application/json',
+            },
+            body:formData,
+        }).then((response)=>response.json())
+          .then((data)=>{responseData = data})
+
+          if(responseData.success){
+             product.image = responseData.image_url;
+             console.log(product)
+             await fetch('http://localhost:4000/addproduct',{
+                method : 'POST',
+                headers : {
+                    Accept : 'application/json',
+                    'Content-Type' : 'application/json',
+                },
+                body: JSON.stringify(product),
+             }).then((response)=>response.json())
+               .then((data)=>{  
+                 data.success ? alert("Prduct Added Successfully") : alert("Failed to add product");
+               })
+          }
     }
   return (
     // in this component we will create add product 
     <div className="add-product">
         <div className="addproduct-itemfield">
             <p>Product Title</p>
-            <input type="text" name='name' placeholder='Type here'/>
+            <input value = {productDetails.name} onChange = {changeHandler} type="text" name='name' placeholder='Type here'/>
         </div>
         <div className="addproduct-price">
             <div className="addproduct-itemfield">
                 <p>Price</p>
-                <input type="text" namr='old_price' placeholder='Type here' />
+                <input value = {productDetails.old_price} onChange ={changeHandler} type="text" name='old_price' placeholder='Type here' />
             </div>
 
             <div className="addproduct-itemfield">
                 <p>Offer Price</p>
-                <input type="text" namr='new_price' placeholder='Type here' />
+                <input value = {productDetails.new_price} onChange ={changeHandler}type="text" name='new_price' placeholder='Type here' />
             </div>
         </div>
-        <div className="addproduct-itemfield">
+        <div value = {productDetails.category} onChange ={changeHandler} className="addproduct-itemfield">
             <p>Product Category</p>
             <select name="category" className = 'add-product-selector'>
                 <option value="women">Women</option>
@@ -40,7 +88,7 @@ function AddProduct() {
             </label>
             <input onChange = {imageHandler} type="file"  name='image' id='file-input' hidden/>
         </div>
-        <button className="addproduct-btn">
+        <button onClick = {()=>{addProduct()}}className="addproduct-btn">
             Add
         </button>
     </div>

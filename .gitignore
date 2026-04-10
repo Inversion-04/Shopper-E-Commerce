@@ -13,3 +13,5 @@ Admin/node_modules
 # Build folders
 dist
 build
+
+Backend/upload/
