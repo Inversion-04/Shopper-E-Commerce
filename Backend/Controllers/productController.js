@@ -65,10 +65,18 @@ const popularInWomen = async (req, res) => {
     res.send(popular_in_women);
 };
 
+// related products
+const relatedProducts = async(req,res)=>{
+    const products = await Product.find({});
+    const displayedProducts = products.slice(0,4);
+    res.send(displayedProducts);
+}
+
 module.exports = {
     addProduct,
     removeProduct,  
     getAllProducts,
     newCollections,
     popularInWomen,
+    relatedProducts,
 };
